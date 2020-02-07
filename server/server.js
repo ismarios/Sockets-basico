@@ -14,35 +14,8 @@ const port = process.env.PORT || 3000;
 app.use(express.static(publicPath));
 
 //Inicializar Socket IO para mantener una conexión con el server
-let io = socketIO(server)
-
-io.on('connection', (client) => {
-    console.log('Usuario conectado');
-    client.emit('enviarMensaje', {
-        usuario: 'Administrador',
-        mensaje: 'Bienvenido a esta applicación'
-    })
-
-    client.on('disconnect', () => {
-        console.log('Usuario desconectado');
-    });
-
-    //Escuchar el cliente
-    client.on('enviarMensaje', (mensaje, callback) => {
-        console.log(mensaje);
-
-        if (mensaje.usuario) {
-            callback({
-                resp: 'Todo salió bien'
-            });
-        } else {
-            callback({
-                resp: 'Todo salió mal'
-            });
-        }
-
-    });
-});
+module.exports.io = socketIO(server)
+require('./sockets/socket')
 
 server.listen(port, (err) => {
 
