@@ -29,6 +29,11 @@
             usuario: 'Ismael',
             mensaje: 'Hola mundo'
         });
+
+        // Escuchar información
+        socket.on('enviarMensaje', (mensaje) => {
+            console.log(mensaje);
+        });
     </script>
 
 </body>
